@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
             PlaylistMakerRefTheme {
                 // A surface container using the 'background' color from the theme
                 //
+                //3
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
