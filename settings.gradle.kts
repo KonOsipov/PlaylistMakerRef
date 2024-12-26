@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PlaylistMakerRef"
+rootProject.name = "playlistmakerref"
 include(":app")
