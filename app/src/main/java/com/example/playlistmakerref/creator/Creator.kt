@@ -1,51 +1,60 @@
 package com.example.playlistmakerref.creator
 
-import android.content.SharedPreferences
-import com.example.playlistmakerref.data.network.MediaPlayerRepositoryImpl
-import com.example.playlistmakerref.data.network.RetrofitNetworkClient
-import com.example.playlistmakerref.data.network.TrackRepositoryImpl
-import com.example.playlistmakerref.data.sharedPref.SettingsManager
-import com.example.playlistmakerref.data.sharedPref.SettingsSharedPrefsImpl
-import com.example.playlistmakerref.data.sharedPref.SharedPrefsManager
-import com.example.playlistmakerref.data.sharedPref.TrackSharedPrefsImpl
-import com.example.playlistmakerref.domain.api.PlayerInteractor
-import com.example.playlistmakerref.domain.api.PlayerRepository
-import com.example.playlistmakerref.domain.api.SettingsInteractor
-import com.example.playlistmakerref.domain.api.SettingsSharedPref
-import com.example.playlistmakerref.domain.api.TrackRepository
-import com.example.playlistmakerref.domain.api.TrackSharedPref
-import com.example.playlistmakerref.domain.api.TracksInteractor
-import com.example.playlistmakerref.domain.impl.MediaPlayerInteractorImpl
-import com.example.playlistmakerref.domain.impl.SettingsInteractorImpl
-import com.example.playlistmakerref.domain.impl.TrackInteractorImpl
+import android.content.Context
+import com.example.playlistmakerref.data.player.MediaPlayerRepositoryImpl
+import com.example.playlistmakerref.data.search.TracksRepositoryImpl
+import com.example.playlistmakerref.data.search.network.RetrofitNetworkClient
+import com.example.playlistmakerref.data.search.storage.SharedPrefsTracksStorage
+import com.example.playlistmakerref.data.settings.SettingsRepositoryImpl
+import com.example.playlistmakerref.data.sharing.ExternalNavigatorImlp
+import com.example.playlistmakerref.domain.player.PlayerInteractor
+import com.example.playlistmakerref.domain.player.api.PlayerRepository
+import com.example.playlistmakerref.domain.player.impl.MediaPlayerInteractorImpl
+import com.example.playlistmakerref.domain.search.TracksInteractor
+import com.example.playlistmakerref.domain.search.api.TracksRepository
+import com.example.playlistmakerref.domain.search.imp.TracksInteractorImpl
+import com.example.playlistmakerref.domain.settings.SettingsInteractor
+import com.example.playlistmakerref.domain.settings.api.SettingsRepository
+import com.example.playlistmakerref.domain.settings.impl.SettingsInteractorImpl
+import com.example.playlistmakerref.domain.sharing.SharingInteractor
+import com.example.playlistmakerref.domain.sharing.api.ExternalNavigator
+import com.example.playlistmakerref.domain.sharing.impl.SharingInteractorImpl
 
 object Creator {
-    private fun getTracksRepository(): TrackRepository {
-        return TrackRepositoryImpl(RetrofitNetworkClient())
+
+    fun provideSharingInteractor(context: Context): SharingInteractor {
+        return SharingInteractorImpl(context, getExternalNavigator(context))
     }
 
-    private fun getTrackSharedPrefs(sharedPreferences: SharedPreferences): TrackSharedPref {
-        return TrackSharedPrefsImpl(SharedPrefsManager(sharedPreferences))
+    private fun getExternalNavigator(context: Context): ExternalNavigator {
+        return ExternalNavigatorImlp(context)
     }
 
-    private fun getSettingsSharedPrefs(sharedPreferences: SharedPreferences): SettingsSharedPref {
-        return SettingsSharedPrefsImpl(SettingsManager(sharedPreferences))
+    fun provideSettingsInteractor(context: Context): SettingsInteractor {
+        return SettingsInteractorImpl(getSettingsRepository(context))
     }
 
-    fun provideTracksInteractor(sharedPreferences: SharedPreferences): TracksInteractor {
-        return TrackInteractorImpl(getTracksRepository(), getTrackSharedPrefs(sharedPreferences))
+    private fun getSettingsRepository(context: Context): SettingsRepository {
+        return SettingsRepositoryImpl(context)
     }
 
-    fun provideSettingsInteractor(sharedPreferences: SharedPreferences): SettingsInteractor {
-        return SettingsInteractorImpl(getSettingsSharedPrefs(sharedPreferences))
+    fun provideTracksInteractor(context: Context): TracksInteractor {
+        return TracksInteractorImpl(getTracksRepository(context))
+    }
+
+    private fun getTracksRepository(context: Context): TracksRepository {
+        return TracksRepositoryImpl(
+            networkClient = RetrofitNetworkClient(context),
+            tracksStorage = SharedPrefsTracksStorage(context)
+        )
+    }
+
+    fun provideMediaPlayerInteractor(): PlayerInteractor {
+        return MediaPlayerInteractorImpl(getMediaPlayerRepository())
     }
 
     private fun getMediaPlayerRepository(): PlayerRepository {
         return MediaPlayerRepositoryImpl()
-    }
-
-    fun provideMediaPlayaerInteractor(): PlayerInteractor {
-        return MediaPlayerInteractorImpl(getMediaPlayerRepository())
     }
 
 }

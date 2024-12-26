@@ -1,4 +1,4 @@
-package com.example.playlistmakerrefref
+package com.example.playlistmakerref
 
 import org.junit.Test
 

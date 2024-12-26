@@ -2,91 +2,96 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/background"
+    style="@style/SearchScreenLayout"
     android:orientation="vertical"
-    tools:context=".ui.tracklist.SearchActivity">
+    tools:context=".ui.search.activity.SearchActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        style="@style/ToolbarStyle"
-        android:layout_height="56dp"
-        app:title="@string/search" />
-
+        android:id="@+id/searchOutButton"
+        style="@style/SearchToolbar"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:titleTextColor="?attr/colorSecondaryVariant"
+        app:title="@string/main_search"
+        app:titleTextAppearance="@style/SearchToolbar"
+        android:layout_marginBottom="@dimen/classic_size_8dp"/>
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp">
+        android:id="@+id/searchBar"
+        style="@style/SearchBarContainer.theme"
+        android:layout_marginBottom="@dimen/classic_size_24dp">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/shape" />
-
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/search"
-            app:tint="?attr/colorOnSurface" />
+            android:id="@+id/zoomSearchBarIcon"
+            android:src="@drawable/ic_search_16"
+            android:paddingStart="@dimen/search_bar_side_padding"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_gravity="center_vertical|start"
+            style="@style/SearchIcons.theme"/>
 
         <EditText
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="52dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginBottom="8dp"
-            android:autofillHints="true"
-            android:background="@null"
-            android:cursorVisible="true"
-            android:hint="@string/search"
+            android:id="@+id/searchBarEditText"
             android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@color/black"
-            android:textColorHint="?attr/colorOnSurface"
-            android:textCursorDrawable="@drawable/cursor"
-            tools:ignore="labelFor" />
+            android:textSize="@dimen/text_size_16sp"
+            style="@style/SearchEditText.theme" />
 
         <ImageView
-            android:id="@+id/clean_icon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="26dp"
-            android:src="@drawable/clean"
+            android:id="@+id/searchBarClearButton"
+            android:src="@drawable/ic_clear_16"
             android:visibility="gone"
-            app:tint="?attr/colorOnSurface"
-            tools:visibility="visible" />
-
+            android:paddingEnd="@dimen/search_bar_side_padding"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_gravity="center_vertical|end"
+            style="@style/SearchIcons.theme"/>
 
     </FrameLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvSearchHistoryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/search_history"
+            android:fontFamily="@font/ys_display_medium"
+            android:textSize="@dimen/classic_text_size_19"
+            android:textFontWeight="500"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:letterSpacing="0"
+            android:visibility="gone"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_trackList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+        <include
+            android:id="@+id/llPlaceholderLayout"
+            layout="@layout/placeholder_search_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+
+    <ProgressBar android:id="@+id/searchProgressBar"
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:layout_gravity="center"
-        android:layout_marginTop="140dp"
-        android:indeterminateTint="@color/cursor"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
-    <include
-        layout="@layout/error_layout"
-        tools:visibility="gone" />
-
-    <include layout="@layout/track_list" />
+        android:layout_marginTop="@dimen/classic_size_124dp"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"/>
 
 </LinearLayout>
