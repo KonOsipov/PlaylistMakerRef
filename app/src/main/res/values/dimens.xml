@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner_margin">20dp</dimen>
+    <dimen name="margin_title_top">14dp</dimen>
+    <dimen name="settings_button_height">61dp</dimen>
+    <dimen name="settings_padding_start">16dp</dimen>
+    <dimen name="settings_text_size">16sp</dimen>
+    <dimen name="main_button_layout_height">0dp</dimen>
+    <dimen name="main_button_layout_weight">3</dimen>
+    <dimen name="main_button_text_size">22sp</dimen>
+    <dimen name="main_button_cornerRadius">20dp</dimen>
+    <dimen name="main_button_iconPadding">10dp</dimen>
+    <dimen name="main_button_paddingVertical">21dp</dimen>
+    <dimen name="main_button_paddingEnd">12dp</dimen>
+    <dimen name="base_text_size">22sp</dimen>
+    <dimen name="corner_radius">16dp</dimen>
+    <dimen name="main_buttons_icon_padding">10dp</dimen>
+    <dimen name="search_margin_horizontal">16dp</dimen>
+    <dimen name="text_size_search_act_buttons">14sp</dimen>
+    <dimen name="corner_radius_search_act_buttons">54dp</dimen>
+    <dimen name="track_icon_margin">8dp</dimen>
+    <dimen name="track_text_margin_start">64dp</dimen>
+    <dimen name="track_text_margin_end">44dp</dimen>
+    <dimen name="drawable_ellipse_padding">6dp</dimen>
+    <dimen name="margin_top">24dp</dimen>
+    <dimen name="error_text_size">19sp</dimen>
+    <dimen name="update_button_radius">54dp</dimen>
+    <dimen name="margin_search_top">54dp</dimen>
+</resources>
